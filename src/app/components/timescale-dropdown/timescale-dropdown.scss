@@ -1,0 +1,55 @@
+.ts-drop { position: relative; display: inline-block; }
+
+.ts-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px 4px 10px;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  background: #fff;
+  font-family: "Circular-Std", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(62, 64, 219, 1);
+  cursor: pointer;
+  user-select: none;
+
+  &:hover { background: #F9FAFB; }
+
+  svg {
+    width: 12px;
+    height: 12px;
+    color: rgba(62, 64, 219, 1);
+  }
+}
+
+    .ts-btn-label { color: rgba(62, 64, 219, 1); font-weight: 600; }
+
+    .ts-menu {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      background: #fff;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.10);
+      min-width: 130px;
+      z-index: 300;
+      padding: 4px 0;
+      display: none;
+
+      &.open { display: block; }
+    }
+
+    .ts-item {
+      padding: 8px 14px;
+      font-size: 13px;
+      color: #374151;
+      cursor: pointer;
+      font-family: "Circular-Std", sans-serif;
+      transition: background .1s;
+
+      &:hover { background: #F9FAFB; }
+      &.active { color: var(--primary-text-color); font-weight: 600; }
+    }

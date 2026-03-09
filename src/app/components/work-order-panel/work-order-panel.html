@@ -1,0 +1,91 @@
+<div class="overlay" [class.overlay--open]="open" (click)="onClose()"></div>
+
+<div class="panel" [class.panel--open]="open" role="dialog">
+
+  <div class="panel__header">
+    <div class="panel__header-row">
+      <span class="panel__title">Work Order Details</span>
+      <div class="panel__actions">
+        <button class="btn-ghost" type="button" (click)="onClose()">Cancel</button>
+        <button class="btn-primary" type="button" (click)="onSave()">{{ saveLabel }}</button>
+      </div>
+    </div>
+    <p class="panel__subtitle">Specify the dates, name and status for this order</p>
+  </div>
+
+  <div class="panel__body">
+
+    <div class="alert-error" *ngIf="showOverlapError">
+      This work order overlaps with an existing order on the same work center.
+      Please adjust the dates to resolve the conflict.
+    </div>
+
+    <!-- Name -->
+    <div class="form-group">
+      <label class="form-label">Work Order Name</label>
+      <input class="form-input" [class.form-input--error]="nameCtrl.invalid && nameCtrl.touched" type="text"
+        placeholder="Acme Inc." [formControl]="nameCtrl" autocomplete="off">
+      <span class="form-error" *ngIf="nameCtrl.invalid && nameCtrl.touched">
+        Work Order Name is required.
+      </span>
+    </div>
+
+    <!-- Status -->
+    <div class="form-group">
+      <label class="form-label">Status</label>
+      <ng-select [formControl]="statusCtrl" [items]="statusOptions" bindValue="value" [clearable]="false"
+        [searchable]="false" class="status-select">
+        <ng-template ng-label-tmp let-item="item">
+          <span class="badge" [ngClass]="'badge--' + item.value">{{ item.label }}</span>
+        </ng-template>
+
+        <!-- Dropdown options show plain text with colored dot -->
+        <ng-template ng-option-tmp let-item="item">
+          <div class="status-option">
+            <span class="status-dot" [ngClass]="'status-dot--' + item.value"></span>
+            <span class="status-option-label">{{ item.label }}</span>
+          </div>
+        </ng-template>
+      </ng-select>
+    </div>
+
+    <!-- End Date -->
+    <div class="form-group">
+      <label class="form-label">End date</label>
+      <div class="date-input-row" [class.date-input-row--open]="endPickerOpen()"
+        [class.date-input-row--error]="(endDateCtrl.invalid && endDateCtrl.touched) || endBeforeStart"
+        (click)="toggleEndPicker()">
+        <span class="date-display">
+          {{ displayNgb(endDateCtrl.value) || 'MM/DD/YYYY' }}
+        </span>
+      </div>
+      <div class="picker-wrap" *ngIf="endPickerOpen()">
+        <ngb-datepicker [formControl]="endDateCtrl" (dateSelect)="onEndDateSelect()"></ngb-datepicker>
+      </div>
+      <span class="form-error" *ngIf="endDateCtrl.invalid && endDateCtrl.touched">
+        End date is required.
+      </span>
+      <span class="form-error" *ngIf="endBeforeStart">
+        End date must be after start date.
+      </span>
+    </div>
+
+    <!-- Start Date -->
+    <div class="form-group">
+      <label class="form-label">Start date</label>
+      <div class="date-input-row" [class.date-input-row--open]="startPickerOpen()"
+        [class.date-input-row--error]="startDateCtrl.invalid && startDateCtrl.touched" (click)="toggleStartPicker()">
+        <span class="date-display">
+          {{ displayNgb(startDateCtrl.value) || 'MM/DD/YYYY' }}
+        </span>
+      </div>
+      <div class="picker-wrap" *ngIf="startPickerOpen()">
+        <ngb-datepicker [formControl]="startDateCtrl" (dateSelect)="onStartDateSelect()"></ngb-datepicker>
+      </div>
+      <span class="form-error" *ngIf="startDateCtrl.invalid && startDateCtrl.touched">
+        Start date is required.
+      </span>
+    </div>
+
+  </div>
+</div>

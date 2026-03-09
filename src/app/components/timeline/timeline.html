@@ -1,0 +1,80 @@
+<div class="page">
+  <h1 class="page-title">Work Orders</h1>
+
+  <!-- Timescale control -->
+  <div class="ts-row">
+    <div class="ts-control">
+      <span class="ts-static-label">Timescale</span>
+      <app-timescale-dropdown [current]="currentTimescale()"
+        (changed)="onTimescaleChange($event)"></app-timescale-dropdown>
+    </div>
+  </div>
+
+  <!-- Timeline wrapper -->
+  <div class="tl-wrap">
+
+    <!-- HEADER BAND -->
+    <div class="tl-head-band">
+      <div class="tl-head-left">Work Center</div>
+      <div class="tl-head-right" #headRight>
+        <div class="tl-head-inner" [style.width.px]="totalWidth()">
+
+          <div *ngFor="let col of columns(); trackBy: trackByColDate" class="tl-col-hdr" [style.width.px]="col.width">
+            <span *ngIf="col.isCurrentPeriod" class="cur-period-label" [style.left.px]="col.todayFraction * col.width">
+              {{ dateUtils.currentPeriodLabel(currentTimescale()) }}
+            </span>
+            {{ col.label }}
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="tl-body">
+
+      <div class="tl-left" #tlLeft>
+        <div *ngFor="let row of rows(); trackBy: trackByWcId" class="wc-row">
+          {{ row.workCenter.data.name }}
+        </div>
+      </div>
+
+      <!-- Right scrollable grid -->
+      <div class="tl-right" #tlRight>
+        <div class="tl-grid" [style.width.px]="totalWidth()" [style.min-height.px]="gridHeight">
+
+          <div class="col-guides">
+            <div *ngFor="let col of columns(); trackBy: trackByColDate" class="col-guide" [style.width.px]="col.width">
+            </div>
+          </div>
+
+          <div *ngFor="let row of rows(); let ri = index; trackBy: trackByWcId" class="tl-grid-row"
+            [style.width.px]="totalWidth()" [style.height.px]="44" (click)="onRowClick($event, row.workCenter.docId)"
+            (mousemove)="onRowMouseMove($event)" (mouseleave)="onRowMouseLeave()"></div>
+
+          <!-- ③ Work order bars -->
+          <ng-container *ngFor="let row of rows(); let ri = index; trackBy: trackByWcId">
+            <app-work-order-bar *ngFor="let bar of row.bars; trackBy: trackByOrderId" [order]="bar.order" [x]="bar.x"
+              [width]="bar.width" [top]="ri * 44 + 22" (edit)="onEditOrder($event)"
+              (delete)="onDeleteOrder($event)"></app-work-order-bar>
+          </ng-container>
+
+          <div class="today-line" [style.left.px]="todayX()"></div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Slide-out panel-->
+<app-work-order-panel [open]="panelOpen()" [mode]="panelMode()" [workCenterId]="panelWorkCenter()"
+  [prefillStartDate]="panelPrefillDate()" [editOrderId]="panelEditOrderId()" (closed)="onPanelClose()"
+  (saved)="onPanelSave($event)"></app-work-order-panel>
+
+<!-- Tooltip -->
+<div *ngIf="tooltipVisible" class="add-dates-tooltip" [style.left.px]="tooltipX" [style.top.px]="tooltipY">
+  Click to add dates
+</div>

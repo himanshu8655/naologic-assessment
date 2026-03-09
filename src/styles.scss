@@ -1,0 +1,105 @@
+@import "@ng-select/ng-select/themes/default.theme.css";
+
+/* ================= GLOBAL VARIABLES ================= */
+
+:root {
+  --primary-text-color: rgba(62, 64, 219, 1);
+  --purple-bg-color: rgba(238, 240, 255, 1);
+}
+
+/* ================= RESET ================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  cursor: url('/icons/Pointing.svg'), auto !important;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: "Circular-Std", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 13px;
+  color: #111827;
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ================= CUSTOM CURSOR — ALL ELEMENTS ================= */
+
+// ng-select
+.ng-select,
+.ng-select *,
+.ng-select-container,
+.ng-select-container *,
+.ng-dropdown-panel,
+.ng-dropdown-panel *,
+.ng-option,
+.ng-value,
+.ng-arrow-wrapper,
+.ng-clear-wrapper,
+.ng-input,
+.ng-input * {
+  cursor: url('/icons/Pointing.svg'), auto !important;
+}
+
+// ngb-datepicker
+ngb-datepicker,
+ngb-datepicker *,
+.ngb-dp-day,
+.ngb-dp-weekday,
+.ngb-dp-month,
+.ngb-dp-month *,
+.ngb-dp-header,
+.ngb-dp-header *,
+[ngbDatepickerDayView],
+[ngbDatepickerDayView] * {
+  cursor: url('/icons/Pointing.svg'), auto !important;
+}
+
+/* ================= NG-SELECT OVERRIDES ================= */
+
+.ng-select .ng-select-container {
+  font-family: "Circular-Std", -apple-system, sans-serif;
+  font-size: 13px;
+  border-color: #E5E7EB;
+  border-radius: 6px;
+  min-height: 38px;
+
+  &:hover {
+    border-color: #9CA3AF;
+  }
+}
+
+.ng-select.ng-select-focused:not(.ng-select-opened) > .ng-select-container {
+  border-color: var(--primary-text-color);
+  box-shadow: 0 0 0 3px rgba(59, 91, 219, 0.1);
+}
+
+.ng-dropdown-panel {
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+  font-family: "Circular-Std", -apple-system, sans-serif;
+
+  .ng-option {
+    padding: 8px 13px;
+    font-size: 13px;
+
+    &.ng-option-marked {
+      background: #F9FAFB;
+    }
+
+    &.ng-option-selected {
+      background: var(--purple-bg-color);
+      color: var(--primary-text-color);
+    }
+  }
+}

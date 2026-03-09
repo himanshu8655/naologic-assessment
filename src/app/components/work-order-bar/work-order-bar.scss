@@ -1,0 +1,169 @@
+.wo-bar {
+  position: absolute;
+  transform: translateY(-50%);
+  height: 28px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  gap: 6px;
+  z-index: 10;
+  cursor: pointer;
+  user-select: none;
+  overflow: visible;
+
+  &--complete {
+    background: #fbfff3;
+    border: 1px solid #6ee7b7;
+  }
+  &--in-progress {
+    background: rgba(237, 238, 255, 1);
+    box-shadow: 0 0 0 1px rgba(222, 224, 255, 1);
+  }
+  &--blocked {
+    background: #fffcf1;
+    border: 1px solid #ffffcf;
+  }
+  &--open {
+    background: #f2ffff;
+    border: 1px solid #cefbff;
+  }
+}
+
+.wo-name {
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
+}
+.wo-bar--complete .wo-name {
+  color: #059669;
+}
+.wo-bar--in-progress .wo-name {
+  color: rgba(3, 9, 41, 1);
+}
+.wo-bar--blocked .wo-name {
+  color: #b13600;
+}
+.wo-bar--open .wo-name {
+  color: #00b0c3;
+}
+
+.s-pill {
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  line-height: 1.4;
+}
+.s-pill--complete {
+  background: #e1ffcc;
+  color: #059669;
+  border: 1px solid #6ee7b7;
+}
+.s-pill--in-progress {
+  background: #d0dbff;
+  color: rgba(3, 9, 41, 1);
+  border: 1px solid rgba(222, 224, 255, 1);
+}
+.s-pill--blocked {
+  background: #fceeb5;
+  color: #b13600;
+  border: 1px solid #ffffcf;
+}
+
+.status-text--open {
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  line-height: 1.4;
+  background: #e4fdff;
+  color: #00b0c3;
+  border: 1px solid #cefbff;
+}
+
+.menu-btn {
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+  transition: background 0.1s;
+
+  &--visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.08);
+  }
+}
+
+.dots {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 1;
+  color: #6b7280;
+}
+.wo-bar--complete .dots {
+  color: #059669;
+}
+.wo-bar--in-progress .dots {
+  color: rgba(3, 9, 41, 1);
+}
+.wo-bar--blocked .dots {
+  color: #b13600;
+}
+.wo-bar--open .dots {
+  color: #00b0c3;
+}
+
+.ctx-menu {
+  position: fixed;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  z-index: 500;
+  padding: 4px 0;
+  min-width: 120px;
+  overflow: hidden;
+}
+
+.ctx-item {
+  padding: 9px 16px;
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(3, 9, 41, 1); // ← default color for Edit
+  cursor: pointer;
+  font-family: 'Circular-Std', sans-serif;
+  transition: background 0.1s;
+  line-height: 1.4;
+  display: block; // ← semicolon was missing here before
+
+  &:hover {
+    background: #f5f7ff;
+  }
+
+  &--delete {
+    color: var(--primary-text-color); // ← same primary color for Delete
+  }
+}

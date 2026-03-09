@@ -1,0 +1,21 @@
+<div class="wo-bar" [class]="'wo-bar wo-bar--' + order.data.status" [style.left.px]="x"
+    [style.width.px]="order.data.status === 'in-progress' ? 381 : width" [style.top.px]="top"
+    (mouseenter)="isHovered.set(true)" (mouseleave)="onBarMouseLeave($event)" (click)="$event.stopPropagation()">
+    <span class="wo-name">{{ order.data.name }}</span>
+
+    <span *ngIf="order.data.status === 'open'" class="status-text--open">Open</span>
+
+    <span *ngIf="order.data.status !== 'open'" class="s-pill s-pill--{{ order.data.status }}">{{
+        statusLabel
+        }}</span>
+
+    <button class="menu-btn" [class.menu-btn--visible]="isHovered()" (mouseenter)="isHovered.set(true)"
+        (mouseleave)="onBarMouseLeave($event)" (click)="toggleMenu($event)" title="Options">
+        <span class="dots">···</span>
+    </button>
+</div>
+
+<div *ngIf="menuOpen()" class="ctx-menu" [style.left.px]="menuX" [style.top.px]="menuY">
+    <div class="ctx-item" (click)="doEdit()">Edit</div>
+    <div class="ctx-item ctx-item--delete" (click)="doDelete()">Delete</div>
+</div>
